@@ -44,7 +44,8 @@ async def get_todo(title):
 
 
 @app.post("/api/todo", response_model=Todo)
-async def create_todo(todo: Todo):
+async def create_todo(todo:Todo):
+    # print(todo.dict())
     response = await create_todo(todo.dict())
     if response:
         return response

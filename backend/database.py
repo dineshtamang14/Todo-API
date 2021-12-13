@@ -3,7 +3,7 @@ from model import Todo
 # MongoDB driver
 import motor.motor_asyncio
 
-client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://dinesh:dinesh1997@cluster0.cuuqa.mongodb.net")
+client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
 database = client.TodoList
 collection = database.todo
 
@@ -23,7 +23,7 @@ async def fetch_todos():
 
 async def create_todo(todo):
     document = todo
-    result = await collection.insert_one(document)
+    await collection.insert_one(document)
     return document
 
 

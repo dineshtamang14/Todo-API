@@ -1,7 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-
 from model import Todo
+
+# App object
+app = FastAPI()
+
 from database import (
     fetch_todo,
     fetch_todos,
@@ -9,9 +12,6 @@ from database import (
     update_todo,
     delete_todo
 )
-
-# App object
-app = FastAPI()
 
 origins = ['https://localhost:3000']
 
@@ -31,13 +31,13 @@ async def read_roo():
 
 @app.get("/api/todo")
 async def get_todos():
-    response = await get_todos()
+    response = await fetch_todos()
     return response
 
 
 @app.get("/api/todo{title}", response_model=Todo)
 async def get_todo(title):
-    response = await get_todo(title)
+    response = await fetch_todo(title)
     if response:
         return response
     raise HTTPException(404, f"no todo with title {title}")
@@ -65,4 +65,3 @@ async def delete_todo(title):
     if response:
         return "successfully deleted the todo"
     raise HTTPException(404, f"there is no todo with title: {title}")
-
